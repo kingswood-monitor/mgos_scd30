@@ -18,4 +18,7 @@ extern "C"
 
     // Get temperature (ppm)
     uint16_t mgos_SCD30_get_co2(Sensor *sensor);
+
+    // // Begin measuring
+    // bool mgos_SCD30_begin_measuring(Sensor *sensor);
 }

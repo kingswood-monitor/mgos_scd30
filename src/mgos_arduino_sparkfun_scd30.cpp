@@ -35,15 +35,6 @@ public:
 
         return (deviceID == 0x1050) && (manufacturerID == 0x5449);
     }
-
-    uint16_t getManufacturerId()
-    {
-        return 0;
-    }
-
-    uint16_t getDeviceId()
-    {
-        return 0;
     }
 
 private:
