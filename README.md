@@ -4,6 +4,8 @@
 
 This is a library for the Inspirion SCD30 low power, high accuracy digital temperature, humidity, and CO2 sensor. It is a port to Mongoose OS of the Arduino SparkFun SCD30 driver - SparkFun's rights to the original code are acknowledged. It is tested on an ESP8266.
 
+Interaction with the device is via a virtual interface. See [Mongoose OS Library: Sensor virtual interface](https://github.com/richardjlyon/arduino_sensor_interface) for details.
+
 ## Usage
 
 ### mos.yml
@@ -24,22 +26,20 @@ config_schema:
 #include "mgos_arduino_sparkfun_scd30.h"
 
 // Create a sensor object
-SCD30 *scd30 = mgos_SCD30_create();
+Sensor *sensor;
 
 enum mgos_app_init_result mgos_app_init(void)
 {
   // Initialise the sensor
-  mgos_SCD30_initialise(scd30);
-  mgos_SCD30_set_measurement_interval(scd30, 3); // seconds
-  mgos_SCD30_set_ambient_pressure(scd30, 1024);  // millibars
+  sensor = mgos_HDC1080_create();
   ...
 }
 
 timer_cb(void *)
 {
-    double temp_c = mgos_SCD30_get_temperature(scd30);
-    double humidity = mgos_SCD30_get_humidity(scd30);
-    uint16_t co2 = mgos_SCD30_get_co2(scd30);
+    double temp_c = sensor->readTemperature();
+    double humidity = sensor->readHumidity();
+    int co2 = sensor->readCO2();
     ...◊
 }
 ```
