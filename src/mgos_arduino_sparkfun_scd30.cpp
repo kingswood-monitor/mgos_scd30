@@ -30,11 +30,7 @@ public:
 
     bool isAvailable()
     {
-        uint16_t deviceID = this->getDeviceId();
-        uint16_t manufacturerID = this->getManufacturerId();
-
-        return (deviceID == 0x1050) && (manufacturerID == 0x5449);
-    }
+        return sensor.beginMeasuring();
     }
 
 private:
