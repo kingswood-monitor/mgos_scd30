@@ -2,14 +2,10 @@ author: Richard Lyon <richardlyon@fastmail.com>
 type: lib
 description: A driver for an Inspirion SCD30 temperature, humidity, and CO2 sensor
 version: 1.0
-
 name: SENSIRION_SCD30_LIBRARY
-
 libs_version: ${mos.version}
 modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
-
-# Optional. List of tags for online search.
 tags:
   - c
   - hardware
@@ -17,18 +13,17 @@ tags:
   - temperature
   - humidity
   - CO2
-
 sources:
   - src
-
-
 filesystem:
   - fs
-
 config_schema:
-
+  - ["sensor", "o", { title: "Sensor custom settings" }]
+  - ["sensor.SCD30", "o", { title: "Inspirion SCD30" }]
+  - ["sensor.SCD30.hasTemp", "b", true, { title: "Sensor has temperature" }]
+  - ["sensor.SCD30.hasHumidity", "b", true, { title: "Sensor has humidity" }]
+  - ["sensor.SCD30.hasCO2", "b", true, { title: "Sensor has CO2" }]
 libs:
   - origin: https://github.com/mongoose-os-libs/arduino-compat
   - origin: https://github.com/mongoose-os-libs/arduino-wire
-
 manifest_version: 2017-09-29
