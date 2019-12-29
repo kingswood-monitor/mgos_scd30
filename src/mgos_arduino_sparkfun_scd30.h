@@ -2,34 +2,20 @@
  * Arduido SparkFun_SCD30 Library API wrapper
  */
 
-#include "SparkFun_SCD30_Arduino_Library.h"
+#include <stdint.h>
+#include "sensor.h"
 
-#ifdef __cplusplus
 extern "C"
 {
-#endif
-
     // Create an SCD30 instance
-    SCD30 *mgos_SCD30_create();
-
-    // Initialise the sensor
-    bool mgos_SCD30_initialise(SCD30 *scd);
-
-    // Set Measurement Interval (seconds)
-    void mgos_SCD30_set_measurement_interval(SCD30 *scd, uint16_t seconds);
-
-    // Set ambient pressure (millibars)
-    void mgos_SCD30_set_ambient_pressure(SCD30 *scd, uint16_t pressure_mbar);
+    Sensor *mgos_SCD30_create(uint16_t seconds, uint16_t pressure_mbar);
 
     // Get temperature (centigrade)
-    double mgos_SCD30_get_temperature(SCD30 *scd);
+    double mgos_SCD30_get_temperature(Sensor *sensor);
 
     // Get humidity (0.0-1.0)
-    double mgos_SCD30_get_humidity(SCD30 *scd);
+    double mgos_SCD30_get_humidity(Sensor *sensor);
 
     // Get temperature (ppm)
-    uint16_t mgos_SCD30_get_co2(SCD30 *scd);
-
-#ifdef __cplusplus
+    uint16_t mgos_SCD30_get_co2(Sensor *sensor);
 }
-#endif /* __cplusplus */

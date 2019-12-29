@@ -1,57 +1,81 @@
 
 #include "mgos_arduino_sparkfun_scd30.h"
+#include "SparkFun_SCD30_Arduino_Library.h"
+
+class SCD30_Sensor : public Sensor
+{
+public:
+    SCD30_Sensor(uint16_t seconds, uint16_t pressure_mbar)
+    {
+        sensor = SCD30();
+        sensor.begin();
+        sensor.setMeasurementInterval(seconds);
+        sensor.setAmbientPressure(pressure_mbar);
+    }
+
+    float readTemperature()
+    {
+        return sensor.getTemperature();
+    }
+
+    float readHumidity()
+    {
+        return sensor.getHumidity();
+    }
+
+    int readCO2()
+    {
+        return sensor.getCO2();
+    }
+
+    bool isAvailable()
+    {
+        uint16_t deviceID = this->getDeviceId();
+        uint16_t manufacturerID = this->getManufacturerId();
+
+        return (deviceID == 0x1050) && (manufacturerID == 0x5449);
+    }
+
+    uint16_t getManufacturerId()
+    {
+        return 0;
+    }
+
+    uint16_t getDeviceId()
+    {
+        return 0;
+    }
+
+private:
+    SCD30 sensor;
+};
 
 // Create an SCD30 instance
-SCD30 *mgos_SCD30_create()
+Sensor *mgos_SCD30_create(uint16_t seconds, uint16_t pressure_mbar)
 {
-    return new SCD30();
-}
-
-// Initialise the sensor
-bool mgos_SCD30_initialise(SCD30 *scd)
-{
-    if (scd == nullptr)
-        return false;
-    bool ok = scd->begin();
-    return ok;
-}
-
-// Set Measurement Interval (seconds)
-void mgos_SCD30_set_measurement_interval(SCD30 *scd, uint16_t seconds)
-{
-    if (scd == nullptr)
-        return;
-    scd->setMeasurementInterval(seconds);
-}
-
-// Set ambient pressure (millibars)
-void mgos_SCD30_set_ambient_pressure(SCD30 *scd, uint16_t pressure_mbar)
-{
-    if (scd == nullptr)
-        return;
-    scd->setAmbientPressure(pressure_mbar);
+    return new SCD30_Sensor(seconds, pressure_mbar);
 }
 
 // Get temperature (centigrade)
-double mgos_SCD30_get_temperature(SCD30 *scd)
+double mgos_SCD30_get_temperature(Sensor *sensor)
 {
-    if (scd == nullptr)
+    if (sensor == nullptr)
         return -1;
-    return scd->getTemperature();
+    return sensor->readTemperature();
 }
 
 // Get humidity (0.0-1.0)
-double mgos_SCD30_get_humidity(SCD30 *scd)
+double mgos_SCD30_get_humidity(Sensor *sensor)
 {
-    if (scd == nullptr)
+    if (sensor == nullptr)
         return -1;
-    return scd->getHumidity();
+    return sensor->readHumidity();
 }
 
 // Get CO2 (ppm)
-uint16_t mgos_SCD30_get_co2(SCD30 *scd)
+uint16_t mgos_SCD30_get_co2(Sensor *sensor)
 {
-    if (scd == nullptr)
+    if (sensor == nullptr)
         return -1;
-    return scd->getCO2();
+    return sensor->readCO2();
 }
