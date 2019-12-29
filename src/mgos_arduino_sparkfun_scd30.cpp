@@ -66,3 +66,4 @@ uint16_t mgos_SCD30_get_co2(Sensor *sensor)
         return -1;
     return sensor->readCO2();
 }
+// test
