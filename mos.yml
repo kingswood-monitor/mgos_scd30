@@ -2,6 +2,7 @@ author: Richard Lyon <richardlyon@fastmail.com>
 type: lib
 description: A driver for an Inspirion SCD30 temperature, humidity, and CO2 sensor
 version: 1.3
+manifest_version: 2017-09-29
 
 tags:
   - c
@@ -10,10 +11,13 @@ tags:
   - temperature
   - humidity
   - CO2
+
 sources:
   - src
+
 includes:
   - include
+
 config_schema:
   - ["sensor", "o", { title: "Sensor custom settings" }]
   - ["sensor.SCD30", "o", { title: "Inspirion SCD30" }]
@@ -32,9 +36,10 @@ config_schema:
       1024,
       { title: "Default ambient airpressure (millibars)" },
     ]
+
 libs:
   - origin: https://github.com/mongoose-os-libs/arduino-compat
   - origin: https://github.com/mongoose-os-libs/arduino-wire
   - origin: https://github.com/kingswood-monitor/mgos_sensor_interface
     version: 1.3
-manifest_version: 2017-09-29
+
