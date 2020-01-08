@@ -1,11 +1,8 @@
 author: Richard Lyon <richardlyon@fastmail.com>
 type: lib
 description: A driver for an Inspirion SCD30 temperature, humidity, and CO2 sensor
-version: 1.2
-name: SENSIRION_SCD30_LIBRARY
-# libs_version: ${mos.version}
-# modules_version: ${mos.version}
-# mongoose_os_version: ${mos.version}
+version: 1.3
+
 tags:
   - c
   - hardware
@@ -15,8 +12,8 @@ tags:
   - CO2
 sources:
   - src
-filesystem:
-  - fs
+includes:
+  - include
 config_schema:
   - ["sensor", "o", { title: "Sensor custom settings" }]
   - ["sensor.SCD30", "o", { title: "Inspirion SCD30" }]
@@ -38,5 +35,6 @@ config_schema:
 libs:
   - origin: https://github.com/mongoose-os-libs/arduino-compat
   - origin: https://github.com/mongoose-os-libs/arduino-wire
-  - origin: https://github.com/richardjlyon/lib-sensor-interface-NODEMCUDEVKIT-mongoose
+  - origin: https://github.com/kingswood-monitor/mgos_sensor_interface
+    version: 1.3
 manifest_version: 2017-09-29
